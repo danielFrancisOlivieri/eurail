@@ -8,15 +8,21 @@
 
     <!-- Map takes up full browser window -->
     <style>
-      html, body, #map {
+      html, body {
+
+      }
+
+      #map {
         height: 100%;
         padding: 0;
         margin: 0;
+
       }
+
     button {
       position: fixed;
       bottom: 17%;
-
+      z-index: 3;
     }
     .left {
       left: 100px;
@@ -27,7 +33,22 @@
       float: right;
     }
 
+    .nav {
+      position: fixed;
+      top: 50px;
+      z-index: -1;
+      left:auto;
+    }
 
+    .bottom {
+
+      height: 80vh;
+    }
+
+    .menu {
+
+      height: 60px;
+    }
 
     </style>
 
@@ -36,20 +57,54 @@
 
   </head>
   <body>
-    <h1> Map </h1>
+<!--
+    <div class="ui inverted menu nav">
+    <a class="active item">
+      Map
+    </a>
+    <a class="item">
+      Figures
+    </a>
+    <a class="item">
+      Citations
+    </a>
+    <a class="item">
+      About
+    </a>
+  </div> -->
 
-    <div id="map">
+  <div class="ui top attached tabular menu">
+    <a class="active item" data-tab="map">
+      Map
+    </a>
+    <a class="item" data-tab="figures">
+      Figures
+    </a>
+    <a class="item" data-tab="citations">
+      Citations
+    </a>
+    <a class="item" data-tab="about">
+      About
+    </a>
 
-    </div>
+  </div>
 
-<button class="ui left labeled icon button">
+  <!-- map -->
+<div class="ui bottom attached segment" data-tab="map">
+    <div id="map"></div>
+
+<button class="ui left labeled icon button" onclick="navigateLocationsBackward()">
   <i class="left arrow icon"></i>
   Back
 </button>
-<button class="ui right labeled icon button">
+<button class="ui right labeled icon button" onclick="navigateLocationsForward()">
   <i class="right arrow icon"></i>
   Next
 </button>
+
+</div>
+
+
 
     <!-- include cartodb.js library -->
     <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
@@ -57,33 +112,129 @@
 
     <!-- Drop your code between the script tags below! -->
     <script>
-    var latitude = -23.343;
+
+    var locationNumber = 0;
+    var locations;
+
+    $.getJSON("points.json", function(json) {
+      //console.log(json); // this will show the info it in firebug console
+      createPlaceArray(json);
+  });
+
+
+
+// callback function for the getJSON that gets the json data
+function createPlaceArray(json) {
+
+locations = json;
+console.log("locations");
+console.log(locations);
+}
+
+
+
 
     // Choose center and zoom level
     var options = {
-      center: [latitude, 0.2784], // Saguntum 39.6799° N, 0.2784° W
-      zoom: 7
+      center: [44, 0.2784], // Saguntum 39.6799° N, 0.2784° W
+      zoom: 2
     }
 
     // Instantiate map on specified DOM element
     var map_object = new L.Map(map, options);
     window.onload = function() {
-
+console.log("we're loading at least");
 
       // Add a basemap to the map object just created
       L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Stamen'
       }).addTo(map_object);
-
-      var vizjson = 'https://documentation.carto.com/api/v2/viz/23f2abd6-481b-11e4-8fb1-0e4fddd5de28/viz.json';
-      cartodb.createLayer(map_object, vizjson).addTo(map_object);
+console.log("we've gotten this far'");
+      var vizjson = 'https://olivierid.carto.com/api/v2/viz/8c423dd7-69d1-4cad-a659-0314ee1593d7/viz.json';
+cartodb.createLayer(map_object, vizjson).addTo(map_object);
 
     }
 
+
+    // takes us to Philly
+    // used in case of an error
+    // because it's always sunny in Philadelphia
+
+    zoomToPhiladelphia = function() {
+
+    map_object.setView([41.9028, 75.1652], 7);
+    console.log("City of Brotherly love");
+
+    }
+
+    // takes us to Rome
+    // used in case of an error
+    // because it's always a good idea to go to Rome when things aren't working out
+
     zoomToRome = function() {
-      latitude += 30;
-    map_object.setView([latitude, 12.4964], 7);
-    console.log("have some love");
+
+    map_object.setView([39.9526, 12.4964], 7);
+    console.log("the Eternal city");
+
+    }
+
+    // for when they click the next button
+    // tries to cycle through the places given to it by the json object
+    function navigateLocationsForward(){
+      // if we don't have data from locations, just go to Rome
+      if (locations == null){
+          zoomToRome();
+      }
+      else {
+
+        console.log(locations[locationNumber]);
+        console.log(locations.length);
+        let latitude = locations[locationNumber].latitude;
+        let longitude = locations[locationNumber].longitude;
+
+        map_object.setView([latitude, longitude], 7);
+
+        // this takes you back to the beginning once you've finished
+        if(locationNumber == locations.length){
+          locationNumber = 0;
+        }
+        else {
+          locationNumber++; // increment so it will be the next place next time
+        }
+
+      }
+
+
+    }
+
+    // for when they click the back button
+    // tries to cycle backwards through the places given to it by the json object
+    function navigateLocationsBackward(){
+      // if we don't have data from locations, just go to Rome
+      if (locations == null){
+          zoomToRome();
+      }
+      else {
+
+        if (locationNumber < 1) {
+          locationNumber = 19;
+        }
+        else{
+          locationNumber--; // decrement so it will be the next place next time
+        }
+
+
+        console.log(locations[locationNumber]);
+        console.log(locations.length);
+        let latitude = locations[locationNumber].latitude;
+        let longitude = locations[locationNumber].longitude;
+
+        map_object.setView([latitude, longitude], 7);
+
+
+
+      }
+
 
     }
 
