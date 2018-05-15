@@ -5,8 +5,9 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <link rel="shortcut icon" href="https://carto.com/favicon.ico" />
-
-    <!-- Map takes up full browser window -->
+<!-- W3.css because I'm a n00b -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- There's a map in my room on the wall of my room -->
     <style>
       html, body {
 
@@ -19,19 +20,35 @@
 
       }
 
-    button {
+    button, .progress, .grid, .column {
       position: fixed;
-      bottom: 17%;
+      display: inline;
+      bottom: 20%;
       z-index: 3;
     }
-    .left {
-      left: 100px;
+
+    .grid {
+      width: 100%;
+      padding: 30%;
     }
 
+.progress {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
     .right {
-      right: 100px;
-      float: right;
+
+margin-right: 30px;
     }
+
+    .left {
+margin-left: 30px;
+    }
+
+
 
     .nav {
       position: fixed;
@@ -43,6 +60,7 @@
     .bottom {
 
       height: 80vh;
+       padding: 30px;
     }
 
     .menu {
@@ -50,10 +68,12 @@
       height: 60px;
     }
 
+
+
     </style>
 
     <link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
-    <link rel="stylesheet" href="semantic\semantic.css" />
+    <link rel="stylesheet" href="/semantic/semantic.css" />
 
   </head>
   <body>
@@ -92,15 +112,48 @@
   <!-- map -->
 <div class="ui bottom attached segment" data-tab="map">
     <div id="map"></div>
-
+<!--
 <button class="ui left labeled icon button" onclick="navigateLocationsBackward()">
   <i class="left arrow icon"></i>
   Back
 </button>
+<div class="ui teal progress" >
+  <div class="bar"></div>
+</div>
 <button class="ui right labeled icon button" onclick="navigateLocationsForward()">
   <i class="right arrow icon"></i>
   Next
 </button>
+-->
+
+
+<div class="ui grid equal width">
+  <div class="column">
+<center>
+    <button class="ui left labeled icon button" onclick="navigateLocationsBackward()">
+      <i class="left arrow icon"></i>
+      Back
+    </button>
+</center>
+  </div>
+  <div class="column">
+
+    <div class="ui teal progress" >
+      <div class="bar"></div>
+    </div>
+
+  </div>
+  <div class="column">
+<center>
+    <button class="ui right labeled icon button" onclick="navigateLocationsForward()">
+      <i class="right arrow icon"></i>
+      Next
+    </button>
+</center>
+  </div>
+
+</div>
+
 
 </div>
 
@@ -108,19 +161,28 @@
 
     <!-- include cartodb.js library -->
     <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
-<script src="semantic\semantic.js"></script>
+<script src="/semantic/semantic.js"></script>
 
     <!-- Drop your code between the script tags below! -->
     <script>
 
-    var locationNumber = 0;
-    var locations;
+    var locationNumber = -1; // helps cycle through locations
+    var locations; // array of all points
+    var pointsLayer; // holds the layer for the points so we can open the info windows programattically
 
-    $.getJSON("points.json", function(json) {
+    $.getJSON("/data/points.json", function(json) {
       //console.log(json); // this will show the info it in firebug console
       createPlaceArray(json);
   });
 
+
+  // opens info window programattically
+  function openInfoWindow(layer, latlng, cartodb_id) {
+    console.log(layer);
+    layer.on('featureOver', function(e, latlng, pos, data, subLayerIndex) {
+      console.log("mouse over polygon with data: " + data);
+    });
+    }
 
 
 // callback function for the getJSON that gets the json data
@@ -129,6 +191,12 @@ function createPlaceArray(json) {
 locations = json;
 console.log("locations");
 console.log(locations);
+}
+
+// callback function that sets the layer into pointsLayer
+function setPointsLayer(layerFromLayerArray) {
+  pointsLayer = layerFromLayerArray;
+  console.log(pointsLayer);
 }
 
 
@@ -149,11 +217,24 @@ console.log("we're loading at least");
       L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Stamen'
       }).addTo(map_object);
-console.log("we've gotten this far'");
+console.log("we've gotten this far");
       var vizjson = 'https://olivierid.carto.com/api/v2/viz/8c423dd7-69d1-4cad-a659-0314ee1593d7/viz.json';
-cartodb.createLayer(map_object, vizjson).addTo(map_object);
+cartodb.createLayer(map_object, vizjson).addTo(map_object).done(function(layers) {
+          // layer 0 is the base layer, layer 1 is cartodb layer
+          console.log(layers.layers);
 
-    }
+        //  sets the point layer to the response we get from this function
+        setPointsLayer(layers.layers[0]);
+
+        })
+        .error(function(err) {
+          console.log(err);
+        });
+
+          console.log(pointsLayer);
+      }
+
+
 
 
     // takes us to Philly
@@ -187,20 +268,26 @@ cartodb.createLayer(map_object, vizjson).addTo(map_object);
       }
       else {
 
-        console.log(locations[locationNumber]);
-        console.log(locations.length);
-        let latitude = locations[locationNumber].latitude;
-        let longitude = locations[locationNumber].longitude;
-
-        map_object.setView([latitude, longitude], 7);
-
-        // this takes you back to the beginning once you've finished
         if(locationNumber == locations.length){
           locationNumber = 0;
         }
         else {
           locationNumber++; // increment so it will be the next place next time
         }
+
+        // open info window, not working
+      //  openInfoWindow(pointsLayer, null, locations[locationNumber].cartodb_id);
+
+
+        console.log(locations[locationNumber].cartodb_id);
+
+        let latitude = locations[locationNumber].latitude;
+        let longitude = locations[locationNumber].longitude;
+
+        map_object.setView([latitude, longitude], 7);
+
+        // this takes you back to the beginning once you've finished
+
 
       }
 
@@ -216,20 +303,21 @@ cartodb.createLayer(map_object, vizjson).addTo(map_object);
       }
       else {
 
-        if (locationNumber < 1) {
+        if (locationNumber == 0) {
           locationNumber = 19;
         }
         else{
-          locationNumber--; // decrement so it will be the next place next time
+          locationNumber-= 1; // decrement so it will be the next place next time
+          console.log(locationNumber);
+
+          let latitude = locations[locationNumber].latitude;
+          let longitude = locations[locationNumber].longitude;
+
+          map_object.setView([latitude, longitude], 7);
         }
 
 
-        console.log(locations[locationNumber]);
-        console.log(locations.length);
-        let latitude = locations[locationNumber].latitude;
-        let longitude = locations[locationNumber].longitude;
 
-        map_object.setView([latitude, longitude], 7);
 
 
 
