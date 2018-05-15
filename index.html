@@ -36,7 +36,9 @@
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+
 }
+
 
 
     .right {
@@ -112,19 +114,6 @@ margin-left: 30px;
   <!-- map -->
 <div class="ui bottom attached segment" data-tab="map">
     <div id="map"></div>
-<!--
-<button class="ui left labeled icon button" onclick="navigateLocationsBackward()">
-  <i class="left arrow icon"></i>
-  Back
-</button>
-<div class="ui teal progress" >
-  <div class="bar"></div>
-</div>
-<button class="ui right labeled icon button" onclick="navigateLocationsForward()">
-  <i class="right arrow icon"></i>
-  Next
-</button>
--->
 
 
 <div class="ui grid equal width">
@@ -279,6 +268,11 @@ cartodb.createLayer(map_object, vizjson).addTo(map_object).done(function(layers)
       //  openInfoWindow(pointsLayer, null, locations[locationNumber].cartodb_id);
 
 
+      // increment progress bar
+      // for progress bar
+      $('.progress')
+    .progress('increment');
+
         console.log(locations[locationNumber].cartodb_id);
 
         let latitude = locations[locationNumber].latitude;
@@ -310,6 +304,10 @@ cartodb.createLayer(map_object, vizjson).addTo(map_object).done(function(layers)
           locationNumber-= 1; // decrement so it will be the next place next time
           console.log(locationNumber);
 
+          // decrement progress bar
+          $('.progress')
+        .progress('decrement');
+
           let latitude = locations[locationNumber].latitude;
           let longitude = locations[locationNumber].longitude;
 
@@ -318,13 +316,13 @@ cartodb.createLayer(map_object, vizjson).addTo(map_object).done(function(layers)
 
 
 
-
-
-
       }
 
 
     }
+
+    // initialize progress bar
+    $('.progress').progress({total: locations.length});
 
     </script>
 
