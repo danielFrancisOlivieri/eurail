@@ -1,0 +1,56 @@
+  #map {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+
+  }
+
+button, .progress, .grid, .column {
+  position: fixed;
+  display: inline;
+  bottom: 20%;
+  z-index: 3;
+}
+
+.grid {
+  width: 100%;
+  padding: 30%;
+}
+
+.progress {
+position: relative;
+top: 50%;
+transform: translateY(-50%);
+
+}
+
+
+
+.right {
+
+margin-right: 30px;
+}
+
+.left {
+margin-left: 30px;
+}
+
+
+
+.nav {
+  position: fixed;
+  top: 50px;
+  z-index: -1;
+  left:auto;
+}
+
+.bottom {
+
+  height: 80vh;
+   padding: 30px;
+}
+
+.menu {
+
+  height: 60px;
+}
