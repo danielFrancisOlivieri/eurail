@@ -96,10 +96,11 @@ margin-left: 30px;
   </div> -->
 
   <div class="ui top attached tabular menu">
+
     <a class="active item" data-tab="map">
       Map
     </a>
-    <a class="item" data-tab="figures">
+    <a class="item" data-tab="figures" >
       Figures
     </a>
     <a class="item" data-tab="citations">
@@ -112,9 +113,9 @@ margin-left: 30px;
   </div>
 
   <!-- map -->
-<div class="ui bottom attached segment" data-tab="map">
-    <div id="map"></div>
 
+<div class="ui bottom attached active tab segment" data-tab="map">
+   <div id="map"></div>
 
 <div class="ui grid equal width">
   <div class="column">
@@ -146,7 +147,18 @@ margin-left: 30px;
 
 </div>
 
-
+<div class="ui bottom attached tab segment" data-tab="figures">
+  <h1> Polybius Quote </h2>
+    <p>
+“There is nothing, therefore, which we ought to be more alive to, and to seek for, than the causes of every event which occurs. For the most important results are often produced by trifles; and it is invariably easier to apply remedial measures at the beginning, before things have got beyond the stage of conception and intention.”
+    </p>
+</div>
+<div class="ui bottom attached tab segment" data-tab="citations">
+  Third
+</div>
+<div class="ui bottom attached tab segment" data-tab="about">
+  four
+</div>
 
     <!-- include cartodb.js library -->
     <script src="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/cartodb.js"></script>
@@ -156,7 +168,7 @@ margin-left: 30px;
     <script>
 
     var locationNumber = -1; // helps cycle through locations
-    var locations; // array of all points
+    var locations = 20; // array of all points
     var pointsLayer; // holds the layer for the points so we can open the info windows programattically
 
     $.getJSON("/data/points.json", function(json) {
@@ -201,6 +213,8 @@ function setPointsLayer(layerFromLayerArray) {
     var map_object = new L.Map(map, options);
     window.onload = function() {
 console.log("we're loading at least");
+// tabs
+$('.top.menu .item').tab();
 
       // Add a basemap to the map object just created
       L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -322,7 +336,10 @@ cartodb.createLayer(map_object, vizjson).addTo(map_object).done(function(layers)
     }
 
     // initialize progress bar
-    $('.progress').progress({total: locations.length});
+    $('.progress').progress({total:locations.length});
+
+    // tabs
+    $('.top.menu .item').tab();
 
     </script>
 
