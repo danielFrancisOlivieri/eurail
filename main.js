@@ -2,8 +2,8 @@ var locationNumber = -1; // helps cycle through locations
 var locations = 20; // array of all points
 var pointsLayer; // holds the layer for the points so we can open the info windows programattically
 
-$.getJSON("/data/points.json", function(json) {
-    //console.log(json); // this will show the info it in firebug console
+$.getJSON("/data/punicPoints.json", function(json) {
+    console.log(json); // this will show the info it in firebug console
     createPlaceArray(json);
 });
 
@@ -24,12 +24,15 @@ function setPointsLayer(layerFromLayerArray) {
 
 // Choose center and zoom level
 var options = {
-    center: [44, 0.2784], // Saguntum 39.6799° N, 0.2784° W
-    zoom: 2
+    center: [36.8529, 10.3217], // Saguntum 39.6799° N, 0.2784° W
+    zoom: 7
 }
 
 // Instantiate map on specified DOM element
 var map_object = new L.Map(map, options);
+
+
+
 window.onload = function() {
     console.log("we're loading at least");
     // tabs
@@ -40,22 +43,19 @@ window.onload = function() {
         attribution: 'Stamen'
     }).addTo(map_object);
     console.log("we've gotten this far");
-    var vizjson = 'https://olivierid.carto.com/api/v2/viz/8c423dd7-69d1-4cad-a659-0314ee1593d7/viz.json';
+    var vizjson = 'https://olivierid.carto.com/api/v2/viz/b8f4c673-4ac7-47d5-ae41-6e6acadedfcc/viz.json';
     cartodb.createLayer(map_object, vizjson).addTo(map_object).done(function(layers) {
         // layer 0 is the base layer, layer 1 is cartodb layer
-        layers
-            .on('featureOver', function(e, latlng, pos, data) {
-                console.log(e, latlng, pos, data);
-            })
-            .on('error', function(err) {
-                console.log('error: ' + err);
-            });
+        console.log(layers);
+
     }).on('error', function(err) {
         console.log("some error occurred: " + err);
     });
 
 
 }
+
+
 
 // takes us to Philly
 // used in case of an error
@@ -86,36 +86,49 @@ function navigateLocationsForward() {
     if (locations == null) {
         zoomToRome();
     } else {
+      console.log(locations.length);
+      console.log(locationNumber);
 
-        if (locationNumber == locations.length) {
-            locationNumber = 0;
-        } else {
-            locationNumber++; // increment so it will be the next place next time
+        if (locationNumber >= locations.length) {
+            // do nothing
         }
+        else {
 
-        // open info window, not working
-        //  openInfoWindow(pointsLayer, null, locations[locationNumber].cartodb_id);
+            locationNumber++; // increment so it will be the next place next time
 
-
-        // increment progress bar
-        // for progress bar
         $('.progress')
             .progress('increment');
 
-        console.log(locations[locationNumber].cartodb_id);
+        console.log(locations.length);
+        console.log(locationNumber);
 
         let latitude = locations[locationNumber].latitude;
         let longitude = locations[locationNumber].longitude;
 
-        map_object.setView([latitude, longitude], 7);
+        console.log(latitude + " " + longitude);
+        //map_object.setView([latitude, longitude], 7);
+        map_object.panTo([latitude, longitude], 7);
 
         // this takes you back to the beginning once you've finished
 
 
     }
+  }
 
+    map_object.on("locationfound", function(){
+
+      var latlng = L.latLng(locations[locationNumber].latitude, locations[locationNumber].longitude);
+
+      var place = locations[locationNumber].place;
+      var text = locations[locationNumber].text;
+
+      map_object.openPopup("<b><center data-content='Add users to your feed' >" + place + "</center></b><br/>" + text ,  latlng)
+
+    })
 
 }
+
+
 
 // for when they click the back button
 // tries to cycle backwards through the places given to it by the json object
@@ -125,9 +138,11 @@ function navigateLocationsBackward() {
         zoomToRome();
     } else {
 
-        if (locationNumber == 0) {
-            locationNumber = 19;
-        } else {
+        if (locationNumber <= 0) {
+            // do nothing
+        }
+
+        else {
             locationNumber -= 1; // decrement so it will be the next place next time
             console.log(locationNumber);
 
@@ -139,22 +154,33 @@ function navigateLocationsBackward() {
             let longitude = locations[locationNumber].longitude;
 
             map_object.setView([latitude, longitude], 7);
+            map_object.panTo([latitude, longitude], 7);
         }
 
 
 
     }
 
+    map_object.on("moveend", function(){
+
+      var latlng = L.latLng(locations[locationNumber].latitude, locations[locationNumber].longitude);
+
+      var place = locations[locationNumber].place;
+
+      var text = locations[locationNumber].text;
+
+      map_object.openPopup("<b><center><span title='this is a place' >" + place + "</span></center></b><br/>" + text ,  latlng)
+
+    })
 
 }
 
+
+
 // initialize progress bar
 $('.progress').progress({
-    total: locations.length
+    total: 13
 });
 
 // tabs
 $('.top.menu .item').tab();
-
-
-// intialize isotope
