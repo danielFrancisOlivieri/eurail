@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Eurail 2015 Tour</title>
+    <title>Second Punic War</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <link rel="shortcut icon" href="https://carto.com/favicon.ico" />
@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
     <link rel="stylesheet" href="/semantic/semantic.css" />
     <link rel="stylesheet" href="./style.css" />
+    <!-- leaflet style
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+<link href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet">-->
+<script src="./jquery.js"></script>
 
   </head>
   <body>
@@ -32,28 +36,28 @@
 
   <!-- map -->
 
-<div class="ui bottom attached active tab segment" data-tab="map">
+<div class="ui bottom attached active tab segment"  data-tab="map">
    <div id="map"></div>
 
-<div class="ui grid equal width">
-  <div class="column">
+<div class="ui grid equal width forMap">
+  <div class="column forMap">
 <center>
-    <button class="ui left labeled icon button" onclick="navigateLocationsBackward()">
+    <button class="ui left labeled icon button forMap" onclick="previous()">
       <i class="left arrow icon"></i>
       Back
     </button>
 </center>
   </div>
-  <div class="column">
+  <div class="column forMap">
 
-    <div class="ui custom progress" >
+    <div class="ui custom progress forMap" >
       <div class="bar"></div>
     </div>
 
   </div>
-  <div class="column">
+  <div class="column forMap">
 <center>
-    <button class="ui right labeled icon button" onclick="navigateLocationsForward()">
+    <button class="ui right labeled icon button forMap"  onclick="next()">
       <i class="right arrow icon"></i>
       Next
     </button>
@@ -65,23 +69,136 @@
 
 </div>
 
+<!-- glossary type tab to show the people behind the story -->
 <div class="ui bottom attached tab segment" data-tab="figures">
-  <h1> Polybius Quote </h2>
-    <p>
-“There is nothing, therefore, which we ought to be more alive to, and to seek for, than the causes of every event which occurs. For the most important results are often produced by trifles; and it is invariably easier to apply remedial measures at the beginning, before things have got beyond the stage of conception and intention.”
-    </p>
+<div class="container">
+
+
+<div class="ui grid equal width">
+
+<div class="row">
+<div class="column">
+    <div class="ui card">
+      <div class="ui slide masked reveal image">
+        <img src="/images/tristan1.jpg" class="visible content">
+        <img src="/images/tristan2.jpg" class="hidden content">
+      </div>
+      <div class="content">
+        <a class="header">Tristan</a>
+        <div class="meta">
+          <span class="date">the Brains</span>
+        </div>
+      </div>
+      <div class="extra content">
+        <a>
+          <i class="users icon"></i>
+
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="column">
+    <div class="ui card">
+      <div class="ui slide masked reveal image">
+        <img src="/images/elena2.jpg" class="visible content">
+        <img src="/images/elena3.jpg" class="hidden content">
+      </div>
+      <div class="content">
+        <a class="header">Elena</a>
+        <div class="meta">
+          <span class="date">the Brawn</span>
+        </div>
+      </div>
+      <div class="extra content">
+        <a>
+          <i class="users icon"></i>
+
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="ui card">
+      <div class="ui slide masked reveal image">
+        <img src="/images/daniel2.jpg" class="visible content">
+        <img src="/images/daniel3.jpg" class="hidden content">
+      </div>
+      <div class="content">
+        <a class="header">Daniel</a>
+        <div class="meta">
+          <span class="date">the Wit</span>
+        </div>
+      </div>
+      <div class="extra content">
+        <a>
+          <i class="users icon"></i>
+
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="ui card">
+      <div class="ui slide masked reveal image">
+        <img src="/images/caya1.jpg" class="visible content">
+        <img src="/images/caya3.jpg" class="hidden content">
+      </div>
+      <div class="content">
+        <a class="header">Caya</a>
+        <div class="meta">
+          <span class="date">the Wildcard</span>
+        </div>
+      </div>
+      <div class="extra content">
+        <a>
+          <i class="users icon"></i>
+
+        </a>
+      </div>
+    </div>
+  </div>
+
 </div>
+
+
+  </div>
+
+
+  </div>
+</div>
+
+
 <div class="ui bottom attached tab segment" data-tab="citations">
-  Third
+<h1> Citations </h1>
+<p> All of the information used here comes from Elena Isenberg's records of the trip. </p>
+<p> Elena also planned the trip. </p>
+<p> Thank you to Semantic UI for the great user interface and to the Dixons for taking me to Rome. </p>
+
+
 </div>
 <div class="ui bottom attached tab segment" data-tab="about">
-  four
+  <h1> About </h1>
+  <p> This is a test map project to give an example of the format I will be using to tell the story of the Second Punic War. </p>
+  <p> This was created by me, Daniel Olivieri, as part of my summer scholars project for Digital Storytelling. </p>
+  <p> Credit for beginning the Mapping Ancient Texts Project goes to Professor Myers of the Kenyon Classics department. </p>
 </div>
 
     <!-- include cartodb.js library -->
-    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+    <script src="carto.js"></script>
+<!-- isotope  -->
+
+    <script src="./isotope.js"></script>
+    <!-- image loaded for isotope to work -->
+
+  <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+
 <script src="/semantic/semantic.js"></script>
 <script src="main.js"></script>
+<script src="easyButton.js"></script>
 
   </body>
 </html>
