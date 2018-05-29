@@ -3,7 +3,7 @@ var locations = 20; // array of all points
 var pointsLayer; // holds the layer for the points so we can open the info windows programattically
 
 $.getJSON("/data/punicPoints.json", function(json) {
-    console.log(json); // this will show the info it in firebug console
+
     createPlaceArray(json);
 });
 
@@ -18,7 +18,7 @@ function createPlaceArray(json) {
 // callback function that sets the layer into pointsLayer
 function setPointsLayer(layerFromLayerArray) {
     pointsLayer = layerFromLayerArray;
-    console.log(pointsLayer);
+
 }
 
 
@@ -34,7 +34,7 @@ var map_object = new L.Map(map, options);
 
 
 window.onload = function() {
-    console.log("we're loading at least");
+
     // tabs
     $('.top.menu .item').tab();
 
@@ -42,15 +42,40 @@ window.onload = function() {
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Stamen'
     }).addTo(map_object);
-    console.log("we've gotten this far");
+
     var vizjson = 'https://olivierid.carto.com/api/v2/viz/b8f4c673-4ac7-47d5-ae41-6e6acadedfcc/viz.json';
     cartodb.createLayer(map_object, vizjson).addTo(map_object).done(function(layers) {
         // layer 0 is the base layer, layer 1 is cartodb layer
-        console.log(layers);
+
 
     }).on('error', function(err) {
         console.log("some error occurred: " + err);
     });
+
+
+    L.easyButton("<button class='ui right labeled icon button forMap'> <i class='right arrow icon'></i> Next </button>", function() {
+        navigateLocationsForward();
+
+
+
+        var latlng = L.latLng(locations[locationNumber].latitude, locations[locationNumber].longitude);
+
+        var place = locations[locationNumber].place;
+        var text = locations[locationNumber].text;
+
+        //popup options
+        var popupOptions = {
+            maxWidth: 300,
+            maxHeight: 300,
+            autoPan: false,
+            keepInView: false
+        }
+
+
+
+        map_object.openPopup("<h3><center>" + place + "</center></h3>" + text, latlng, popupOptions);
+
+    }).addTo(map_object);
 
 
 }
@@ -79,6 +104,56 @@ zoomToRome = function() {
 
 }
 
+// to trigger when the click the next button
+
+function next() {
+    navigateLocationsForward();
+
+
+    var latlng = L.latLng(locations[locationNumber].latitude, locations[locationNumber].longitude);
+
+    var place = locations[locationNumber].place;
+    var text = locations[locationNumber].text;
+
+    //popup options
+    var popupOptions = {
+        maxWidth: 300,
+        maxHeight: 300,
+        autoPan: false,
+        keepInView: false
+    }
+
+
+
+    map_object.openPopup("<h3><center>" + place + "</center></h3>" + text, latlng, popupOptions);
+
+}
+
+function previous() {
+    navigateLocationsBackward();
+
+
+    var latlng = L.latLng(locations[locationNumber].latitude, locations[locationNumber].longitude);
+
+    var place = locations[locationNumber].place;
+    var text = locations[locationNumber].text;
+
+    //popup options
+    var popupOptions = {
+        maxWidth: 300,
+        maxHeight: 300,
+        autoPan: false,
+        keepInView: false
+    }
+
+
+
+    map_object.openPopup("<h3><center>" + place + "</center></h3>" + text, latlng, popupOptions);
+
+    console.log(place);
+    console.log(locationNumber);
+}
+
 // for when they click the next button
 // tries to cycle through the places given to it by the json object
 function navigateLocationsForward() {
@@ -86,45 +161,33 @@ function navigateLocationsForward() {
     if (locations == null) {
         zoomToRome();
     } else {
-      console.log(locations.length);
-      console.log(locationNumber);
+
 
         if (locationNumber >= locations.length) {
             // do nothing
-        }
-        else {
+        } else {
 
             locationNumber++; // increment so it will be the next place next time
 
-        $('.progress')
-            .progress('increment');
-
-        console.log(locations.length);
-        console.log(locationNumber);
-
-        let latitude = locations[locationNumber].latitude;
-        let longitude = locations[locationNumber].longitude;
-
-        console.log(latitude + " " + longitude);
-        //map_object.setView([latitude, longitude], 7);
-        map_object.panTo([latitude, longitude], 7);
-
-        // this takes you back to the beginning once you've finished
+            $('.progress')
+                .progress('increment');
 
 
+
+            let latitude = locations[locationNumber].latitude;
+            let longitude = locations[locationNumber].longitude;
+
+
+            //map_object.setView([latitude, longitude], 7);
+            map_object.panTo([latitude, longitude], 7);
+
+            // this takes you back to the beginning once you've finished
+
+
+        }
     }
-  }
 
-    map_object.on("locationfound", function(){
 
-      var latlng = L.latLng(locations[locationNumber].latitude, locations[locationNumber].longitude);
-
-      var place = locations[locationNumber].place;
-      var text = locations[locationNumber].text;
-
-      map_object.openPopup("<b><center data-content='Add users to your feed' >" + place + "</center></b><br/>" + text ,  latlng)
-
-    })
 
 }
 
@@ -140,11 +203,9 @@ function navigateLocationsBackward() {
 
         if (locationNumber <= 0) {
             // do nothing
-        }
-
-        else {
+        } else {
             locationNumber -= 1; // decrement so it will be the next place next time
-            console.log(locationNumber);
+
 
             // decrement progress bar
             $('.progress')
@@ -153,7 +214,7 @@ function navigateLocationsBackward() {
             let latitude = locations[locationNumber].latitude;
             let longitude = locations[locationNumber].longitude;
 
-            map_object.setView([latitude, longitude], 7);
+            //  map_object.setView([latitude, longitude], 7);
             map_object.panTo([latitude, longitude], 7);
         }
 
@@ -161,17 +222,7 @@ function navigateLocationsBackward() {
 
     }
 
-    map_object.on("moveend", function(){
 
-      var latlng = L.latLng(locations[locationNumber].latitude, locations[locationNumber].longitude);
-
-      var place = locations[locationNumber].place;
-
-      var text = locations[locationNumber].text;
-
-      map_object.openPopup("<b><center><span title='this is a place' >" + place + "</span></center></b><br/>" + text ,  latlng)
-
-    })
 
 }
 
