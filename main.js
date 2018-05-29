@@ -53,29 +53,7 @@ window.onload = function() {
     });
 
 
-    L.easyButton("<button class='ui right labeled icon button forMap'> <i class='right arrow icon'></i> Next </button>", function() {
-        navigateLocationsForward();
 
-
-
-        var latlng = L.latLng(locations[locationNumber].latitude, locations[locationNumber].longitude);
-
-        var place = locations[locationNumber].place;
-        var text = locations[locationNumber].text;
-
-        //popup options
-        var popupOptions = {
-            maxWidth: 300,
-            maxHeight: 300,
-            autoPan: false,
-            keepInView: false
-        }
-
-
-
-        map_object.openPopup("<h3><center>" + place + "</center></h3>" + text, latlng, popupOptions);
-
-    }).addTo(map_object);
 
 
 }
