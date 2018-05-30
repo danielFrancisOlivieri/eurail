@@ -13,6 +13,7 @@
     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
 <link href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet">-->
 <script src="./jquery.js"></script>
+<script src="/dependencies/tippy.js"></script>
 
   </head>
   <body>
@@ -42,9 +43,9 @@
 <div class="ui grid equal width forMap">
   <div class="column forMap">
 <center>
-    <button class="ui left labeled icon button forMap hidden" onclick="previous()" id="back">
+    <button class="ui left labeled icon button forMap hidden" title='Click here to go back to the previous event!' data-content="This goes back!" onclick="previous()" id="back">
       <i class="left arrow icon"></i>
-    <p>  Back </p>
+  <p>  Back </p>
     </button>
 </center>
   </div>
@@ -57,7 +58,7 @@
   </div>
   <div class="column forMap">
 <center>
-    <button class="ui right labeled icon button forMap"  onclick="next()" id="forward">
+    <button class="ui right labeled icon button forMap" title='Click here to move to the next event!' onclick="next()" id="forward">
       <i class="right arrow icon"></i>
     <p id="forwardText">  Start </p>
     </button>
@@ -201,7 +202,10 @@
 
     <!-- include cartodb.js library -->
     <script src="carto.js"></script>
-<!-- isotope  -->
+<!-- tippy -->
+<script>
+
+</script>
 
     <script src="./isotope.js"></script>
     <!-- image loaded for isotope to work -->
