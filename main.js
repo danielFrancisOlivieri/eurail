@@ -1,5 +1,6 @@
 var locationNumber = -1; // helps cycle through locations
 var locations = 20; // array of all points
+var numberOfPoints = 13;
 var pointsLayer; // holds the layer for the points so we can open the info windows programattically
 
 $.getJSON("/data/punicPoints.json", function(json) {
@@ -32,7 +33,6 @@ var options = {
 var map_object = new L.Map(map, options);
 
 
-
 window.onload = function() {
 
     // tabs
@@ -47,12 +47,12 @@ window.onload = function() {
     cartodb.createLayer(map_object, vizjson).addTo(map_object).done(function(layers) {
         // layer 0 is the base layer, layer 1 is cartodb layer
 
-
+        console.log(locations.length);
+        numberOfPoints = locations.length;
+        console.log(numberOfPoints);
     }).on('error', function(err) {
         console.log("some error occurred: " + err);
     });
-
-
 
 
 
@@ -82,9 +82,34 @@ zoomToRome = function() {
 
 }
 
-// to trigger when the click the next button
+function displayOrRemoveButtons(locationValue) {
 
+  if (locationValue <= 0) {
+
+  }
+
+}
+
+// checks if it already has a hidden class on it
+ function hasCertainClass(classToCheckFor, elementId) {
+   var classList = $('#' + elementId).attr('class').split(/\s+/); // gets classes
+$.each(classList, function(index, item) {
+if (item === classToCheckFor) {
+//do something
+  return true;
+}
+});
+return false;
+ }
+
+// triggers on the next button
+// first runs the navigate forward to move to the next location
+// then opens the appropriate popup at the new location
 function next() {
+  locationNumber++; // increment so it will be the next place next time
+
+  console.log("next " + locationNumber);
+
     navigateLocationsForward();
 
 
@@ -108,6 +133,10 @@ function next() {
 }
 
 function previous() {
+
+    locationNumber -= 1; // decrement so it will be the next place next time
+
+      console.log("previous " + locationNumber);
     navigateLocationsBackward();
 
 
@@ -128,8 +157,7 @@ function previous() {
 
     map_object.openPopup("<h3><center>" + place + "</center></h3>" + text, latlng, popupOptions);
 
-    console.log(place);
-    console.log(locationNumber);
+
 }
 
 // for when they click the next button
@@ -145,7 +173,18 @@ function navigateLocationsForward() {
             // do nothing
         } else {
 
-            locationNumber++; // increment so it will be the next place next time
+          // makes the back button visible as soon as there is a previous point to return to
+          if (locationNumber >= 0) {
+
+              $("#forwardText").text("Next");
+          }
+          if (locationNumber === 1) {
+            $( "#back" ).removeClass( "hidden" );
+          }
+          if (locationNumber === 12) {
+            $( "#forward" ).addClass( "hidden" );
+          }
+
 
             $('.progress')
                 .progress('increment');
@@ -165,8 +204,6 @@ function navigateLocationsForward() {
         }
     }
 
-
-
 }
 
 
@@ -179,12 +216,27 @@ function navigateLocationsBackward() {
         zoomToRome();
     } else {
 
-        if (locationNumber <= 0) {
-            // do nothing
-        } else {
-            locationNumber -= 1; // decrement so it will be the next place next time
+          if (locationNumber === 0) {
 
+            // change next button to say "start" instead
+            $("#forwardText").text("Start");
 
+              // f() checks if there is already a hidden class on it
+              // if there isn't we can add that class to the back button
+              var className = "hidden", elementId = "back";
+
+              var whetherClassIsPresent = hasCertainClass(className, elementId);
+
+              console.log("present " + whetherClassIsPresent);
+
+              if (whetherClassIsPresent === false) {
+                $( "#back" ).addClass( "hidden" );
+              }
+            }
+
+            if (locationNumber === 11) {
+              $("#forward").removeClass("hidden");
+            }
             // decrement progress bar
             $('.progress')
                 .progress('decrement');
@@ -201,14 +253,11 @@ function navigateLocationsBackward() {
     }
 
 
-
-}
-
-
+console.log(numberOfPoints);
 
 // initialize progress bar
 $('.progress').progress({
-    total: 13
+    total: numberOfPoints,
 });
 
 // tabs
