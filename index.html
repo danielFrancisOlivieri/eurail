@@ -42,9 +42,9 @@
 <div class="ui grid equal width forMap">
   <div class="column forMap">
 <center>
-    <button class="ui left labeled icon button forMap" onclick="previous()">
+    <button class="ui left labeled icon button forMap hidden" onclick="previous()" id="back">
       <i class="left arrow icon"></i>
-      Back
+    <p>  Back </p>
     </button>
 </center>
   </div>
@@ -57,9 +57,9 @@
   </div>
   <div class="column forMap">
 <center>
-    <button class="ui right labeled icon button forMap"  onclick="next()">
+    <button class="ui right labeled icon button forMap"  onclick="next()" id="forward">
       <i class="right arrow icon"></i>
-      Next
+    <p id="forwardText">  Start </p>
     </button>
 </center>
   </div>
@@ -79,15 +79,18 @@
 <div class="row">
 <div class="column">
     <div class="ui card">
-      <div class="ui slide masked reveal image">
-        <img src="/images/tristan1.jpg" class="visible content">
-        <img src="/images/tristan2.jpg" class="hidden content">
+      <div class="ui slide masked image">
+        <img src="/images/hannibal.jpg" class="visible content">
+        <!--<img src="/images/tristan2.jpg" class="hidden content"> -->
       </div>
       <div class="content">
-        <a class="header">Tristan</a>
+        <a class="header">Hannibal</a>
         <div class="meta">
-          <span class="date">the Brains</span>
+          <span class="date">Carthaginian General</span>
         </div>
+        <p>
+          One of the greatest generals of the ancient world. As a child he swore to fight Rome forever.
+        </p>
       </div>
       <div class="extra content">
         <a>
@@ -101,15 +104,18 @@
 
   <div class="column">
     <div class="ui card">
-      <div class="ui slide masked reveal image">
-        <img src="/images/elena2.jpg" class="visible content">
-        <img src="/images/elena3.jpg" class="hidden content">
+      <div class="ui slide masked image">
+        <img src="/images/scipio.jpg" class="visible content">
+  <!--      <img src="/images/elena3.jpg" class="hidden content"> -->
       </div>
       <div class="content">
-        <a class="header">Elena</a>
+        <a class="header">Scipio</a>
         <div class="meta">
-          <span class="date">the Brawn</span>
+          <span class="date">Roman General</span>
         </div>
+        <p>
+          Brilliant general who won battles in Iberia and then moved on to defeat Hannibal at the battle of Zama, winning the war for Rome.
+        </p>
       </div>
       <div class="extra content">
         <a>
@@ -122,15 +128,18 @@
 
   <div class="column">
     <div class="ui card">
-      <div class="ui slide masked reveal image">
-        <img src="/images/daniel2.jpg" class="visible content">
-        <img src="/images/daniel3.jpg" class="hidden content">
+      <div class="ui slide masked image">
+        <img src="/images/fabius.jpg" class="visible content">
+  <!--      <img src="/images/daniel3.jpg" class="hidden content"> -->
       </div>
       <div class="content">
-        <a class="header">Daniel</a>
+        <a class="header">Quintus Fabius Maximus</a>
         <div class="meta">
-          <span class="date">the Wit</span>
+          <span class="date">Roman General</span>
         </div>
+        <p>
+          A Roman general who avoided battle so much that the strategy of avoiding battle is called Fabian Strategy after him.
+        </p>
       </div>
       <div class="extra content">
         <a>
@@ -143,15 +152,18 @@
 
   <div class="column">
     <div class="ui card">
-      <div class="ui slide masked reveal image">
-        <img src="/images/caya1.jpg" class="visible content">
-        <img src="/images/caya3.jpg" class="hidden content">
+      <div class="ui slide masked image">
+        <img src="/images/massinissa.jpg" class="visible content">
+      <!--  <img src="/images/caya3.jpg" class="hidden content"> -->
       </div>
       <div class="content">
-        <a class="header">Caya</a>
+        <a class="header">Massinissa</a>
         <div class="meta">
-          <span class="date">the Wildcard</span>
+          <span class="date">Numidian Prince</span>
         </div>
+        <p>
+          He is the Numidian Prince who, after being captured and released by Scipio, turns the Numidians from allying with the Carthiginians to allying with the Romans.
+        </p>
       </div>
       <div class="extra content">
         <a>
