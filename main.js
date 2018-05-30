@@ -128,7 +128,7 @@ function next() {
 
 
 
-    map_object.openPopup("<h3><center>" + place + "</center></h3>" + text, latlng, popupOptions);
+    map_object.openPopup("<h3><center data-tooltip='Add your text here'>" + place + "</center></h3>" + text, latlng, popupOptions);
 
 }
 
@@ -262,3 +262,12 @@ $('.progress').progress({
 
 // tabs
 $('.top.menu .item').tab();
+
+$('.forMap').popup({
+  on: 'hover'
+});
+
+//for titles (likely just for testing)
+$('h3').popup({
+  on: 'hover'
+});
