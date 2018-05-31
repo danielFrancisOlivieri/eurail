@@ -20,16 +20,16 @@
 
   <div class="ui top attached tabular menu">
 
-    <a class="active item" data-tab="map">
+    <a class="active item" data-tab="map" id="mapTab">
       Map
     </a>
-    <a class="item" data-tab="figures" >
+    <a class="item" data-tab="figures" id="figuresTab">
       Figures
     </a>
-    <a class="item" data-tab="citations">
+    <a class="item" data-tab="citations" id="citationsTab">
       Citations
     </a>
-    <a class="item" data-tab="about">
+    <a class="item" data-tab="about" id="aboutTab">
       About
     </a>
 
@@ -58,7 +58,7 @@
   </div>
   <div class="column forMap">
 <center>
-    <button class="ui right labeled icon button forMap" title='Click here to move to the next event!' onclick="next()" id="forward">
+    <button class="ui right labeled icon button forMap" title='This goes forward!' onclick="next()" id="forward">
       <i class="right arrow icon"></i>
     <p id="forwardText">  Start </p>
     </button>
@@ -71,125 +71,166 @@
 </div>
 
 <!-- glossary type tab to show the people behind the story -->
-<div class="ui bottom attached tab segment" data-tab="figures">
-<div class="container">
+<div class="ui bottom attached tab segment figures" data-tab="figures">
 
 
 <div class="ui grid equal width">
 
 <div class="row">
-<div class="column">
+<div class="column figure">
     <div class="ui card">
       <div class="ui slide masked image">
-        <img src="/images/hannibal.jpg" class="visible content">
+        <img src="/images/hannibal.jpg"  >
         <!--<img src="/images/tristan2.jpg" class="hidden content"> -->
       </div>
       <div class="content">
         <a class="header">Hannibal</a>
         <div class="meta">
-          <span class="date">Carthaginian General</span>
+          <span class="category"> General</span>
         </div>
         <p>
           One of the greatest generals of the ancient world. As a child he swore to fight Rome forever.
         </p>
       </div>
       <div class="extra content">
-        <a>
-          <i class="users icon"></i>
-
-        </a>
+        <span class="right floated">
+          247 - 182 BCE
+        </span>
+        <span>
+          <i class="user icon"></i>
+          Carthaginian
+        </span>
       </div>
     </div>
   </div>
 
 
-  <div class="column">
+  <div class="column figure">
     <div class="ui card">
       <div class="ui slide masked image">
-        <img src="/images/scipio.jpg" class="visible content">
+        <img src="/images/scipio.jpg"  >
   <!--      <img src="/images/elena3.jpg" class="hidden content"> -->
       </div>
       <div class="content">
         <a class="header">Scipio</a>
         <div class="meta">
-          <span class="date">Roman General</span>
+          <span class="category">Roman General</span>
         </div>
         <p>
-          Brilliant general who won battles in Iberia and then moved on to defeat Hannibal at the battle of Zama, winning the war for Rome.
+          Scipio was a young Roman general who was present for the Roman defeat at the battle of the Trebia. He would win enormous victories in Iberia at just 25 years old. After he had proven his military skill he was allowed to invade North Africa itself, forcing Hannibal to return home to it. At the battle of Zama he defeated Hannibal definitely, ending the war.
         </p>
       </div>
       <div class="extra content">
-        <a>
-          <i class="users icon"></i>
-
-        </a>
+        <span class="right floated">
+          236 – 183 BCE
+        </span>
+        <span>
+          <i class="user icon"></i>
+          Roman
+        </span>
       </div>
     </div>
   </div>
 
-  <div class="column">
+  <div class="column figure">
     <div class="ui card">
       <div class="ui slide masked image">
-        <img src="/images/fabius.jpg" class="visible content">
+        <img src="/images/fabius.jpg" >
   <!--      <img src="/images/daniel3.jpg" class="hidden content"> -->
       </div>
       <div class="content">
         <a class="header">Quintus Fabius Maximus</a>
         <div class="meta">
-          <span class="date">Roman General</span>
+          <span class="category">Roman General</span>
         </div>
         <p>
           A Roman general who avoided battle so much that the strategy of avoiding battle is called Fabian Strategy after him.
         </p>
       </div>
       <div class="extra content">
-        <a>
-          <i class="users icon"></i>
-
-        </a>
+        <span class="right floated">
+          280 – 203 BCE
+        </span>
+        <span>
+          <i class="user icon"></i>
+          Roman
+        </span>
       </div>
     </div>
   </div>
 
-  <div class="column">
+  <div class="column figure">
     <div class="ui card">
       <div class="ui slide masked image">
-        <img src="/images/massinissa.jpg" class="visible content">
+        <img src="/images/massinissa.jpg" >
       <!--  <img src="/images/caya3.jpg" class="hidden content"> -->
       </div>
       <div class="content">
         <a class="header">Massinissa</a>
         <div class="meta">
-          <span class="date">Numidian Prince</span>
+          <span class="category">Numidian Prince</span>
         </div>
         <p>
           He is the Numidian Prince who, after being captured and released by Scipio, turns the Numidians from allying with the Carthiginians to allying with the Romans.
         </p>
       </div>
       <div class="extra content">
-        <a>
-          <i class="users icon"></i>
-
-        </a>
+        <span class="right floated">
+          238 – 148 BCE
+        </span>
+        <span>
+          <i class="user icon"></i>
+          Numidian
+        </span>
       </div>
-    </div>
+
   </div>
 
 </div>
 
 
   </div>
-
+  <div class="row">
+  <div class="column figure">
+    <div class="ui card">
+      <div class="ui slide masked image">
+        <img src="/images/polybius.jpg" >
+      <!--  <img src="/images/caya3.jpg" class="hidden content"> -->
+      </div>
+      <div class="content">
+        <a class="header">Polybius</a>
+        <div class="meta">
+          <span class="category">Historian</span>
+        </div>
+        <p>
+        Polybius spent seventeen years living as a hostage in Rome. While serving as a hostage he worked as a tutor for one of the most distinguished families in Rome at the time. Later in his life he saw the sack of Carthage with his own eyes. In addition to writing history, he also served to organize the new form of government that the Greek city states would use after their defeat by the Romans.
+      </p>
+      </div>
+      <div class="extra content">
+        <span class="right floated">
+          2oo – 118 BCE
+        </span>
+        <span>
+          <i class="user icon"></i>
+          Greek
+        </span>
+      </div>
 
   </div>
+  </div>
+</div>
+
+</div>
+
+
 </div>
 
 
 <div class="ui bottom attached tab segment" data-tab="citations">
 <h1> Citations </h1>
-<p> All of the information used here comes from Elena Isenberg's records of the trip. </p>
-<p> Elena also planned the trip. </p>
-<p> Thank you to Semantic UI for the great user interface and to the Dixons for taking me to Rome. </p>
+<p> This website is based primarily on the writing's of Polybius in his work <ital> the Histories </ital> </p>
+<p> Thank you to the Mellon Grant for supporting this work. </p>
+<p> Thank you to Semantic UI for the great user interface, to Carto for providing mapping support, and font awesome for providing icons. </p>
 
 
 </div>
