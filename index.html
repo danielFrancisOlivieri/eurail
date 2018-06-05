@@ -20,8 +20,10 @@
 
   <div class="ui top attached tabular menu">
 
-
-    <a class="active item" data-tab="map" id="mapTab">
+    <a class="active item" data-tab="intro" id="introTab">
+      Intro
+    </a>
+    <a class="item" data-tab="map" id="mapTab">
       Map
     </a>
     <a class="item" data-tab="figures" id="figuresTab">
@@ -43,8 +45,67 @@
 </div>
 -->
 
+<!-- Intro -->
+<div class="ui bottom attached active tab segment intro"  data-tab="intro">
+
+
+<center>
+    <div class="ui main text container">
+      <h1 class="ui header">Go to War With Hannibal</h1>
+      <p>Mapping The Second Punic War</p>
+    </div>
+</center>
+
+    <div class="ui borderless main menu">
+      <div class="ui text container">
+        <div class="header item">
+          <img class="logo" src="icons/roman.png">
+          by Mapping Ancient Texts
+        </div>
+      </div>
+    </div>
+
+    <div class="ui text container">
+  <h2> Prologue </h2>
+    <p>
+      Carthage and Rome fought a bloody war across Sicily and North Africa. Afrter over twenty years of land battles, sea battles, and guerilla warfare, the Romans emerged victorious, condemning the Carthaginians to pay them huge sums of money.
+    </p>
+    <p>
+      Led by a general who had sworn as a child to never stop fighting Rome, Carthage would return to nearly destroy the Roman Republic, defeating it again and again with displays of incredible ingenuity.
+    </p>
+      <div class="overlay">
+        <div class="ui labeled icon vertical menu">
+          <a class="item" target="_blank" href="https://twitter.com/intent/tweet?url=https://terratory.herokuapp.com/&text=Go+to+war+with+Hannibal.&hashtags=history,digitalstorytelling,rome,hannibal"><i class="twitter icon"></i> Tweet</a>
+          <a class="item" target="_blank" href="https://www.facebook.com/sharer.php?u=https://terratory.herokuapp.com/"><i class="facebook icon"></i> Share</a>
+          <a class="item" href="mailto:?subject=Site about the Second Punic War&amp;body=Check out this site https://terratory.herokuapp.com/."
+   title="Share by Email"><i class="mail icon"></i> E-mail</a>
+        </div>
+      </div>
+      <h2> The Beginning </h2>
+    <p>
+      This is the story of how Hannibal Barca, one of the greatest generals in all of history, brought a war to the Romans unlike any they had ever seen before. He took elephants over the Alps, he laid ambushes, he burned down farms, he turned their allies against them.
+    </p>
+    <p>
+      At the battles of the Trebia, Lake Trasimene, and Cannae, Hannibal Barca slaughtered well over one hundred thousand Roman soldiers. After each battle he made sure to take their weapons and armor, increasing the effectiveness of his own troops.
+    </p>
+    <p>
+      The Romans only defeated Hannibal when they discovered a military genius of their own: that of Scipio Africanus, a young man hated by the upper classes for his long hair and confident air but loved by the lower classes for his consistent compassion and equally consistent ability to win battles.
+    </p>
+    <p>
+      In this website you will go on campaign with Hannibal Barca and watch the war unfold in front of your eyes. You will see every clever ruse, every crushing defeat, every ingenious victory, and even the jokes they told along the way.
+    </p>
+
+<center>
+    <button class="ui right labeled icon button forMap" title='Enter the Second Punic War' data-content="This goes back!" onclick="switchToMapTab()" id="begin">
+      <i class="right arrow icon"></i>
+  <p>  Begin </p>
+    </button>
+  </center>
+</div>
+</div>
+
   <!-- map -->
-<div class="ui bottom attached active tab segment"  data-tab="map">
+<div class="ui bottom attached tab segment map"  data-tab="map">
    <div id="map"></div>
 
 <div class="ui grid equal width forMap">
@@ -415,39 +476,10 @@
   </div>
 </div>
 
-<!--
-
-  <div class="ui grid">
-  <div class="row">
-    <div class="ui raised segment">
-      <div class="ui grid">
-      <div class="four wide column">
-    <img class="ui small circular image porthole" src="images/backOfHead.jpg">
-    </div>
-    <div class="eight wide column">
-      <p> This was created by me, Daniel Olivieri, as part of my summer scholars project for Digital Storytelling. </p>
-    </div>
-    </div>
-  </div>
-  </div>
-  <div class="row">
-    <p> Credit for beginning the Mapping Ancient Texts Project goes to Professor Myers of the Kenyon Classics department.</p>
-  </div>
-  <div class="row">
-    <p>Thank you to the Mellon project</p>
-  </div>
-</div>
-
--->
-
 </div>
 
     <!-- include cartodb.js library -->
     <script src="carto.js"></script>
-<!-- tippy -->
-<script>
-
-</script>
 
 <script src="/semantic/semantic.js"></script>
 <script src="main.js"></script>
