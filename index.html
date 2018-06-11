@@ -4,7 +4,7 @@
     <title>Second Punic War</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <link rel="shortcut icon" href="https://carto.com/favicon.ico" />
+    <link rel="shortcut icon" href="icons/map.png" />
 
     <link rel="stylesheet" href="https://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.15/themes/css/cartodb.css" />
     <link rel="stylesheet" href="/semantic/semantic.css" />
@@ -20,10 +20,10 @@
 
   <div class="ui top attached tabular menu">
 
-    <a class="active item" data-tab="intro" id="introTab">
-      Intro
+    <a class="item" data-tab="intro" id="introTab">
+      Context
     </a>
-    <a class="item" data-tab="map" id="mapTab">
+    <a class="active item" data-tab="map" id="mapTab">
       Map
     </a>
     <a class="item" data-tab="figures" id="figuresTab">
@@ -35,18 +35,8 @@
 
   </div>
 
-<!-- Introduction
-<div class="ui bottom attached active tab segment"  data-tab="intro">
-
-<center> <h1> The Second Punic War </h1> </center>
-
-<p> The world war of the ancient world. </p>
-
-</div>
--->
-
 <!-- Intro -->
-<div class="ui bottom attached active tab segment intro"  data-tab="intro">
+<div class="ui bottom attached tab segment intro"  data-tab="intro">
 
 
 <center>
@@ -66,7 +56,7 @@
     </div>
 
     <div class="ui text container">
-  <h2> Prologue </h2>
+  <h2> The First Punic War </h2>
     <p>
       Carthage and Rome fought a bloody war across Sicily and North Africa. Afrter over twenty years of land battles, sea battles, and guerilla warfare, the Romans emerged victorious, condemning the Carthaginians to pay them huge sums of money.
     </p>
@@ -102,13 +92,50 @@
     </button>
   </center>
 </div>
+<img src="/images/imageOfMap.png" class="hidden">
 </div>
 
   <!-- map -->
-<div class="ui bottom attached tab segment map"  data-tab="map">
+<div class="ui bottom active attached tab segment map"  data-tab="map">
+
+<!-- modal -->
+
+  <div class="ui basic modal">
+    <div class="ui icon header">
+      <i class="map icon"></i>
+      Go to War With Hannibal
+    </div>
+    <div class="content">
+      <p class="modalContent">
+        This is the story of how Hannibal Barca, one of the greatest generals in all of history, brought a war to the Romans unlike any they had ever seen before. He took elephants over the Alps, he laid ambushes, he burned down farms, he turned their allies against them.
+      </p>
+      <p class="modalContent">
+        At the battles of the Trebia, Lake Trasimene, and Cannae, Hannibal Barca slaughtered well over one hundred thousand Roman soldiers. After each battle he made sure to take their weapons and armor, increasing the effectiveness of his own troops.
+      </p>
+      <p>
+        The Romans only defeated Hannibal when they discovered a military genius of their own: that of Scipio Africanus, a young man hated by the upper classes for his long hair and confident air but loved by the lower classes for his consistent compassion and equally consistent ability to win battles.
+      </p>
+      <p class="modalContent">
+        In this website you will go on campaign with Hannibal Barca and watch the war unfold in front of your eyes. You will see every clever ruse, every crushing defeat, every ingenious victory, and even the jokes they told along the way.
+      </p>
+    </div>
+    <div class="actions">
+
+      <div class="ui green ok inverted button">
+
+        Begin
+        <i class="right arrow icon"></i>
+      </div>
+    </div>
+  </div>
+
+<!-- end of modal -->
+
+
    <div id="map"></div>
 
 <div class="ui grid equal width forMap">
+
   <div class="column forMap">
 <center>
     <button class="ui left labeled icon button forMap hidden" title='Click here to go back to the previous event!' data-content="This goes back!" onclick="previous()" id="back">
@@ -155,9 +182,16 @@
             <div class="meta">
               <span class="category">General</span>
             </div>
-            <p>
+            <center>
+            <div class="ui button">
+
+              More
+
+            </div>
+
+        <!--    <p>
               One of the greatest generals of the ancient world. As a child he swore to fight Rome forever.
-            </p>
+            </p> -->
           </div>
           <div class="extra content">
             <span class="right floated">
@@ -187,9 +221,13 @@
               <div class="meta">
                 <span class="category">Historian</span>
               </div>
-              <p>
+              <div class="ui green ok inverted button">
+
+                More
+                <i class="right arrow icon"></i>
+            <!--  <p>
               Polybius spent seventeen years living as a hostage in Rome. While serving as a hostage he worked as a tutor for one of the most distinguished families in Rome at the time. Later in his life he saw the sack of Carthage with his own eyes. In addition to writing history, he also served to organize the new form of government that the Greek city states would use after their defeat by the Romans.
-              </p>
+            </p> -->
             </div>
             <div class="extra content">
               <span class="right floated">
@@ -220,9 +258,13 @@
                 <div class="meta">
                   <span class="category"> General</span>
                 </div>
-                <p>
+                <div class="ui green ok inverted button">
+
+                  More
+                  <i class="right arrow icon"></i>
+              <!--  <p>
                   Brilliant young general, conquered all of Iberia starting when he was just 25. Won the war for Rome.
-                </p>
+                </p> -->
               </div>
               <div class="extra content">
                 <span class="right floated">
@@ -252,9 +294,13 @@
           <div class="meta">
             <span class="category">Roman General</span>
           </div>
-          <p>
+          <div class="ui green ok inverted button">
+
+            More
+            <i class="right arrow icon"></i>
+      <!--    <p>
             A Roman general who avoided battle so much that the strategy of avoiding battle is called Fabian Strategy after him.
-          </p>
+          </p> -->
         </div>
         <div class="extra content">
           <span class="right floated">
@@ -286,9 +332,13 @@
                        <div class="meta">
                          <span class="category">Numidian Prince</span>
                        </div>
-                       <p>
+                       <div class="ui green ok inverted button">
+
+                         More
+                         <i class="right arrow icon"></i>
+                <!--       <p>
                          He is the Numidian Prince who, after being captured and released by Scipio, turns the Numidians from allying with the Carthiginians to allying with the Romans.
-                       </p>
+                       </p> -->
                      </div>
                      <div class="extra content">
                        <span class="right floated">
@@ -321,9 +371,9 @@
                          <div class="meta">
                            <span class="category">Unit</span>
                          </div>
-                         <p>
+                    <!--     <p>
                           The Numidans were incredibly skilled horsemen who were remarkably good at hit and run tactics: they would ride up close and scour the enemy with javelins and ride away before any other cavalry could catch them. Originally they allied with the Carthaginians but after Scipio's skilled diplomacy they turned to the Roman side. Their alliance proved decisive in the final confrontation at Zama.
-                           </p>
+                        </p> -->
                        </div>
                        <div class="extra content">
                          <span class="right floated">
@@ -472,6 +522,20 @@
         </div>
       </div>
     </div>
+
+    <div class="item">
+      <a class="ui tiny image">
+        <img src="/images/adrian.png">
+      </a>
+      <div class="content">
+        <a class="header">Favicons</a>
+        <p class="subheader"> Flaticon </p>
+        <div class="description">
+          <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+        </div>
+      </div>
+    </div>
+
 
   </div>
 </div>
